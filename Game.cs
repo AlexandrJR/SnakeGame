@@ -12,9 +12,24 @@ namespace SnakeGame
 {
     public partial class Game : Form
     {
+        Area area = new Area();
+        Snake snake = new Snake();
+
         public Game()
         {
             InitializeComponent();
+            InitializeGame();
+        }
+
+        private void InitializeGame()
+        {
+            this.Controls.Add(area);
+            area.Location = new Point(100,100);
+
+            foreach (var sp in snake.snakePixels)
+            {
+                this.Controls.Add(sp);
+            }
         }
     }
 }
