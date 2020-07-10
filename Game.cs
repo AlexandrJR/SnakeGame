@@ -25,11 +25,8 @@ namespace SnakeGame
         {
             this.Controls.Add(area);
             area.Location = new Point(100,100);
-
-            foreach (var sp in snake.snakePixels)
-            {
-                this.Controls.Add(sp);
-            }
+            
+            snake.Render(this);
         }
     }
 }
