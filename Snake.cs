@@ -20,11 +20,21 @@ namespace SnakeGame
 
         private void InitializeSnake ()
         {
-            PictureBox snakePixel = new PictureBox();
+            this.AddPixel(300,300);
+            this.AddPixel(300, 320);
+            this.AddPixel(300, 340);
+        }
+
+        private void AddPixel(int left, int top)
+        {
+            PictureBox snakePixel;
+            snakePixel = new PictureBox();
 
             snakePixel.Height = 20;
             snakePixel.Width = 20;
+            snakePixel.Location = new Point(left, top);
             snakePixel.BackColor = Color.Orange;
+
 
             snakePixels.Add(snakePixel);
         }
@@ -34,6 +44,7 @@ namespace SnakeGame
             foreach (var sp in snakePixels)
             {
                 form.Controls.Add(sp);
+                sp.BringToFront();
             }
         }
 
