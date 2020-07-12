@@ -14,7 +14,6 @@ namespace SnakeGame
     {
         int horVelocity = 0;
         int verVelocity = 0;
-        int step = 20;
 
         Area area = new Area();
         Snake snake = new Snake();
@@ -30,6 +29,7 @@ namespace SnakeGame
         private void InitializeGame()
         {
             this.Controls.Add(area);
+            this.KeyDown += Game_Keydown;
             this.Size = new Size(700,700);
             area.Location = new Point(100,100);
             
@@ -44,7 +44,49 @@ namespace SnakeGame
 
         private void MainRimer_Tick(object sender, EventArgs e)
         {
-
+            SnakeMoving();
         }
+
+        private void Game_Keydown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.W)
+            {
+                horVelocity = -20;
+                verVelocity = 0;
+            }
+            else if (e.KeyCode == Keys.S)
+            {
+                horVelocity = 20;
+                verVelocity = 0;
+            }
+            else if (e.KeyCode == Keys.A)
+            {
+                verVelocity = -20;
+                horVelocity = 0;
+            }
+            else if (e.KeyCode == Keys.D)
+            {
+                verVelocity = 20;
+                horVelocity = 0;
+            }
+            mainTimer.Start();
+        }
+
+        private void SnakeMoving()
+        {
+            for (int i = snake.snakePixels.Count - 1; i >= 0; i--)
+            {
+                if (i == 0)
+                {
+                    snake.snakePixels[0].Top += horVelocity;
+                    snake.snakePixels[0].Left += verVelocity;
+                }
+                else
+                {
+                    snake.snakePixels[i].Location = snake.snakePixels[i - 1].Location;
+                }
+            }
+        }
+        
     }
 }
