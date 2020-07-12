@@ -74,12 +74,13 @@ namespace SnakeGame
 
         private void SnakeMoving()
         {
+            PictureBox head = snake.snakePixels[0];
             for (int i = snake.snakePixels.Count - 1; i >= 0; i--)
             {
                 if (i == 0)
                 {
-                    snake.snakePixels[0].Top += horVelocity;
-                    snake.snakePixels[0].Left += verVelocity;
+                    head.Top += horVelocity;
+                    head.Left += verVelocity;
                 }
                 else
                 {
