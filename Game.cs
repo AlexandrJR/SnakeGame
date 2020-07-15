@@ -12,9 +12,7 @@ namespace SnakeGame
 {
     public partial class Game : Form
     {
-        int horVelocity = 0;
-        int verVelocity = 0;
-
+      
         Area area = new Area();
         Snake snake = new Snake();
         Food food = new Food();
@@ -48,53 +46,34 @@ namespace SnakeGame
 
         private void MainRimer_Tick(object sender, EventArgs e)
         {
-            SnakeMoving();
+            snake.Move();
             FoodCollision();
         }
 
         private void Game_Keydown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.W)
+            switch (e.KeyCode)
             {
-                horVelocity = -20;
-                verVelocity = 0;
-            }
-            else if (e.KeyCode == Keys.S)
-            {
-                horVelocity = 20;
-                verVelocity = 0;
-            }
-            else if (e.KeyCode == Keys.A)
-            {
-                verVelocity = -20;
-                horVelocity = 0;
-            }
-            else if (e.KeyCode == Keys.D)
-            {
-                verVelocity = 20;
-                horVelocity = 0;
+                case Keys.D:
+                    snake.HorVelocity = 1;
+                    snake.VerVelocity = 0;
+                    break;
+                case Keys.A:
+                    snake.HorVelocity = -1;
+                    snake.VerVelocity = 0;
+                    break;
+                case Keys.W:
+                    snake.HorVelocity = 0;
+                    snake.VerVelocity = -1;
+                    break;
+                case Keys.S:
+                    snake.HorVelocity = 0;
+                    snake.VerVelocity = 1;
+                    break;
             }
             mainTimer.Start();
         }       
 
-        private void SnakeMoving()
-        {
-            PictureBox head = snake.snakePixels[0];
-
-            //Provides snake body following by using for loop in reverse order
-            for (int i = snake.snakePixels.Count - 1; i >= 0; i--)
-            {
-                if (i == 0)
-                {
-                    head.Top += horVelocity;
-                    head.Left += verVelocity;
-                }
-                else
-                {
-                    snake.snakePixels[i].Location = snake.snakePixels[i - 1].Location;
-                }
-            }
-        }
 
         private void FoodCollision()
         {

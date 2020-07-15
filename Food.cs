@@ -20,7 +20,8 @@ namespace SnakeGame
 
 
         public void AddFood()
-        {            
+        {       
+            
             this.Size = new Size(20,20);
             this.BackColor = Color.Red;
             //Set food location with 20px interval
@@ -34,5 +35,7 @@ namespace SnakeGame
             axis = (int)(Math.Ceiling(axis / 20.0d) * 20);
             return axis;
         }
+
+
     }
 }

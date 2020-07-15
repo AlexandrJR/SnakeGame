@@ -10,6 +10,11 @@ namespace SnakeGame
 {
     class Snake : PictureBox
     {
+        public int HorVelocity { get; set; } = 0;
+        public int VerVelocity { get; set; } = 0;
+        public int Step { get; set; } = 20;
+
+
         public List<PictureBox> snakePixels = new List<PictureBox>();
         PictureBox snakePixel;
 
@@ -48,6 +53,15 @@ namespace SnakeGame
             }
         }
 
-        
+        public void Move()
+        {
+            for (int i = snakePixels.Count - 1; i > 0; i--)
+            {
+                snakePixels[i].Location = snakePixels[i - 1].Location;
+            }
+
+            snakePixels[0].Left += this.HorVelocity * this.Step;
+            snakePixels[0].Top += this.VerVelocity * this.Step;
+        }
     }
 }
