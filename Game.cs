@@ -17,6 +17,7 @@ namespace SnakeGame
 
         Area area = new Area();
         Snake snake = new Snake();
+        Food food = new Food();
         Timer mainTimer = new Timer();
 
         public Game()
@@ -24,11 +25,14 @@ namespace SnakeGame
             InitializeComponent();
             InitializeGame();
             InitializeTimer();
+            
         }
 
         private void InitializeGame()
         {
             this.Controls.Add(area);
+            this.Controls.Add(food);
+            food.BringToFront();
             this.KeyDown += Game_Keydown;
             this.Size = new Size(700,700);
             area.Location = new Point(100,100);
@@ -45,6 +49,7 @@ namespace SnakeGame
         private void MainRimer_Tick(object sender, EventArgs e)
         {
             SnakeMoving();
+            FoodCollision();
         }
 
         private void Game_Keydown(object sender, KeyEventArgs e)
@@ -70,11 +75,13 @@ namespace SnakeGame
                 horVelocity = 0;
             }
             mainTimer.Start();
-        }
+        }       
 
         private void SnakeMoving()
         {
             PictureBox head = snake.snakePixels[0];
+
+            //Provides snake body following by using for loop in reverse order
             for (int i = snake.snakePixels.Count - 1; i >= 0; i--)
             {
                 if (i == 0)
@@ -86,6 +93,24 @@ namespace SnakeGame
                 {
                     snake.snakePixels[i].Location = snake.snakePixels[i - 1].Location;
                 }
+            }
+        }
+
+        private void FoodCollision()
+        {
+            // Finds last snakePixel in the list
+            PictureBox lastPixel = snake.snakePixels[snake.snakePixels.Count - 1]; 
+
+            //Declare by one variable the first list element
+            PictureBox head = snake.snakePixels[0];
+
+            // If snake head cross food borders creates new food and adds new snakePixel
+            if (head.Bounds.IntersectsWith(food.Bounds))
+            {
+                food.AddFood();
+                snake.AddPixel(lastPixel.Left, lastPixel.Top);
+                snake.Render(this);
+
             }
         }
         

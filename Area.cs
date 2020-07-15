@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,8 +21,7 @@ namespace SnakeGame
         {
             this.BackColor = Color.LightSkyBlue;
 
-            this.Height = 400;
-            this.Width = 400;
+            this.Size = new Size(400,400);
 
         }
 

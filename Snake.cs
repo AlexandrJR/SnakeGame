@@ -11,7 +11,7 @@ namespace SnakeGame
     class Snake : PictureBox
     {
         public List<PictureBox> snakePixels = new List<PictureBox>();
-
+        PictureBox snakePixel;
 
         public Snake()
         {
@@ -20,14 +20,14 @@ namespace SnakeGame
 
         private void InitializeSnake ()
         {
-            this.AddPixel(300,300);
+            this.AddPixel(300, 300);
             this.AddPixel(300, 320);
             this.AddPixel(300, 340);
+
         }
 
-        private void AddPixel(int left, int top)
+        public void AddPixel(int left, int top)
         {
-            PictureBox snakePixel;
             snakePixel = new PictureBox();
 
             snakePixel.Height = 20;
@@ -48,5 +48,6 @@ namespace SnakeGame
             }
         }
 
+        
     }
 }
