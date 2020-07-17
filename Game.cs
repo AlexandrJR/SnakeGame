@@ -48,6 +48,7 @@ namespace SnakeGame
         {
             snake.Move();
             FoodCollision();
+            GameOver();
         }
 
         private void Game_Keydown(object sender, KeyEventArgs e)
@@ -78,7 +79,7 @@ namespace SnakeGame
         private void FoodCollision()
         {
             // Finds last snakePixel in the list
-            PictureBox lastPixel = snake.snakePixels[snake.snakePixels.Count - 1]; 
+            PictureBox lastPixel = snake.snakePixels[snake.snakePixels.Count - 1];
 
             //Declare by one variable the first list element
             PictureBox head = snake.snakePixels[0];
@@ -92,6 +93,28 @@ namespace SnakeGame
 
             }
         }
-        
+        private void GameOver()
+        {
+            //Declare by one variable the first list element
+            PictureBox head = snake.snakePixels[0];
+
+            // If snake head cross the are border: GameOver :)
+            if (!head.Bounds.IntersectsWith(area.Bounds))
+            {
+                GameOverEffects();
+            }
+
+
+        }
+
+        // Describes what will happen if player lose
+        private void GameOverEffects()
+        {
+            mainTimer.Stop();
+            this.KeyDown -= Game_Keydown;
+        }
+
+       
+
     }
 }
