@@ -12,6 +12,7 @@ namespace SnakeGame
     class Food : PictureBox
     {
         Random rand = new Random();
+        Snake snake = new Snake();
 
         public Food()
         {
@@ -20,12 +21,23 @@ namespace SnakeGame
 
 
         public void AddFood()
-        {       
-            
-            this.Size = new Size(20,20);
+        {
+            this.Size = new Size(20, 20);
             this.BackColor = Color.Red;
-            //Set food location with 20px interval
-            this.Location = new Point(GetCorrectLocation(), GetCorrectLocation()); 
+
+            // Prevents cases when food appears on snake
+            bool foodValidLocation = false;
+            do
+            {
+                //Set food location with 20px interval
+                this.Location = new Point(GetCorrectLocation(), GetCorrectLocation());
+                foreach (var sp in snake.snakePixels)
+                {
+                    if (sp.Location != this.Location)
+                        foodValidLocation = true;
+                }
+            }
+            while (foodValidLocation == false);
         }
 
         // Creates numbers which divides by 20. 

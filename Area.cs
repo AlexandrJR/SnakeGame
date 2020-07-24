@@ -22,7 +22,7 @@ namespace SnakeGame
             this.BackColor = Color.LightSkyBlue;
 
             this.Size = new Size(400,400);
-
+            this.Location = new Point(100, 100);
         }
 
     }

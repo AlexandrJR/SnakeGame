@@ -17,6 +17,7 @@ namespace SnakeGame
         Snake snake = new Snake();
         Food food = new Food();
         Timer mainTimer = new Timer();
+        Notifications notif = new Notifications();
 
         public Game()
         {
@@ -32,8 +33,7 @@ namespace SnakeGame
             this.Controls.Add(food);
             food.BringToFront();
             this.KeyDown += Game_Keydown;
-            this.Size = new Size(700,700);
-            area.Location = new Point(100,100);
+            this.Size = new Size(615,625);
             
             snake.Render(this);
         }
@@ -46,7 +46,7 @@ namespace SnakeGame
 
         private void MainRimer_Tick(object sender, EventArgs e)
         {
-            snake.Move();
+            snake.SnakeMove();
             FoodCollision();
             GameOver();
         }
@@ -104,6 +104,15 @@ namespace SnakeGame
                 GameOverEffects();
             }
 
+            //Checks snake self collision
+            for (int i = 1; i < snake.snakePixels.Count; i++)
+            {
+                if (snake.snakePixels[0].Bounds.IntersectsWith(snake.snakePixels[i].Bounds))
+                {
+                    GameOverEffects();
+                }
+            }
+
 
         }
 
@@ -112,9 +121,11 @@ namespace SnakeGame
         {
             mainTimer.Stop();
             this.KeyDown -= Game_Keydown;
+            notif.GameOverLabel(this);
+            foreach(var sp in snake.snakePixels)
+            {
+                sp.BackColor = Color.Red; 
+            }
         }
-
-       
-
     }
 }

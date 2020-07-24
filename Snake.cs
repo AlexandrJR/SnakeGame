@@ -53,7 +53,7 @@ namespace SnakeGame
             }
         }
 
-        public void Move()
+        public void SnakeMove()
         {
             for (int i = snakePixels.Count - 1; i > 0; i--)
             {
